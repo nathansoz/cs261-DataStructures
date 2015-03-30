@@ -9,11 +9,11 @@
 
 void fooA(int* iptr){
      /*Print the value pointed to by iptr*/
-     printf("%d\n", *iptr);
+     printf("iptr value: %d\n", *iptr);
      /*Print the address pointed to by iptr*/
-     printf("%p\n", iptr);
+     printf("iptr value address: %p\n", iptr);
      /*Print the address of iptr itself*/
-     printf("%p\n", &iptr);
+     printf("iptr address: %p\n", &iptr);
 }
 
 int main(){
@@ -21,11 +21,11 @@ int main(){
     /*declare an integer x*/
     int x = 42;
     /*print the address of x*/
-    printf("%p\n", &x);
+    printf("x addr: %p\n", &x);
     /*Call fooA() with the address of x*/
     fooA(&x);
     /*print the value of x*/
-    printf("%d", x);
+    printf("x value: %d", x);
     
     return 0;
 }

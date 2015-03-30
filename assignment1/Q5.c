@@ -28,6 +28,8 @@ void sticky(char* word){
 int main(){
     /*Read word from the keyboard using scanf*/
 
+    printf("Please enter a string: ");
+
     /* I'm using scanf because the spec calls for it... but it seems like a bad choice for user input
      * given that a buffer overflow is possible. Something like getchar() in a while loop or fgets might be
      * better?
