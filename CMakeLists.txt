@@ -3,6 +3,8 @@ project(cs261-DataStructures)
 
 set(CMAKE_C_FLAGS "-std=c99")
 
+add_executable(assignment0-0 "assignment0/simple.c")
+
 add_executable(assignment1-0 "assignment1/Q0.c")
 add_executable(assignment1-1 "assignment1/Q1.c")
 add_executable(assignment1-2 "assignment1/Q2.c")
