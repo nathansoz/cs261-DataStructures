@@ -23,7 +23,7 @@ void generate(struct student* students, int n){
     /*Generate random ID and scores for ten students, ID being between 1 and 10, scores between 0 and 100*/
     for(int i = 0; i < n; i++)
     {
-        students[i].id = randInt(1, 10);
+        students[i].id = i + 1;
         students[i].score = randInt(0, 100);
     }
 }
