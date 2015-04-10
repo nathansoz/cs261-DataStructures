@@ -25,7 +25,7 @@ int main(){
     /*Call fooA() with the address of x*/
     fooA(&x);
     /*print the value of x*/
-    printf("x value: %d", x);
+    printf("x value: %d\n", x);
     
     return 0;
 }
