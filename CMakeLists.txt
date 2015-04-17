@@ -18,4 +18,11 @@ set(assignment_2_test_FILES
     "assignment2/testDynArray.c"
 )
 
+set(assignment_2_calc_FILES
+    "assignment2/dynamicArray.h"
+    "assignment2/dynamicArray.c"
+    "assignment2/calc.c"
+)
+
 add_executable(assignment2_test ${assignment_2_test_FILES})
+add_executable(assignment2_calc ${assignment_2_calc_FILES})

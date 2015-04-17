@@ -40,7 +40,12 @@ int isNumber(char *s, double *num)
 */
 void add (struct DynArr *stack)
 {
-	/* FIXME: You will write this function */
+	int i = topDynArr(stack);
+	popDynArr(stack);
+	int j = topDynArr(stack);
+	popDynArr(stack);
+
+	pushDynArr(stack, (i + j));
 }
 
 /*	param: stack the stack being manipulated
