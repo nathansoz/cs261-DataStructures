@@ -141,7 +141,7 @@ void exponential(struct DynArr *stack)
 	pushDynArr(stack, exp(i));
 }
 
-double natural_log(struct DynArr *stack)
+void natural_log(struct DynArr *stack)
 {
 	double i = topDynArr(stack);
 	popDynArr(stack);
@@ -149,7 +149,7 @@ double natural_log(struct DynArr *stack)
 	pushDynArr(stack, log(i));
 }
 
-double base_10_log(struct DynArr *stack)
+void base_10_log(struct DynArr *stack)
 {
 	double i = topDynArr(stack);
 	popDynArr(stack);
@@ -233,7 +233,7 @@ double calculate(int numInputTokens, char **inputString)
 	 */
 	result = topDynArr(stack);
 	popDynArr(stack);
-	printf("The result is %f", result);
+	printf("The result is %f\n", result);
 	return result;
 }
 
