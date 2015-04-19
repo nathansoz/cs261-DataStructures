@@ -26,3 +26,5 @@ set(assignment_2_calc_FILES
 
 add_executable(assignment2_test ${assignment_2_test_FILES})
 add_executable(assignment2_calc ${assignment_2_calc_FILES})
+
+target_link_libraries(assignment2_calc m)
