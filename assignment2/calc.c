@@ -51,7 +51,7 @@ void printInvalid(struct DynArr *stack, char* op)
 	{
 		printf("%f ", getDynArr(stack, i));
 	}
-	printf("%s", op);
+	printf("%s\n", op);
 
 	exit(1);
 	
@@ -246,18 +246,48 @@ double calculate(int numInputTokens, char **inputString)
 			else
 				printInvalid(stack, "^2");
 		}
-		else if(strcmp(s, "^3") == 0)
-			cube(stack);
-		else if(strcmp(s, "abs") == 0)
-			abs_val(stack);
-		else if(strcmp(s, "sqrt") == 0)
-			square_root(stack);
-		else if(strcmp(s, "exp") == 0)
-			exponential(stack);
-		else if(strcmp(s, "ln") == 0)
-			natural_log(stack);
-		else if(strcmp(s, "log") == 0)
-			base_10_log(stack);
+		else if (strcmp(s, "^3") == 0)
+		{
+			if (isEmptyDynArr(stack) == 0 && sizeDynArr(stack) >= 1)
+				cube(stack);
+			else
+				printInvalid(stack, "^3");
+		}
+		else if (strcmp(s, "abs") == 0)
+		{
+			if (isEmptyDynArr(stack) == 0 && sizeDynArr(stack) >= 1)
+				abs_val(stack);
+			else
+				printInvalid(stack, "abs");
+		}
+		else if (strcmp(s, "sqrt") == 0)
+		{
+			if (isEmptyDynArr(stack) == 0 && sizeDynArr(stack) >= 1)
+				square_root(stack);
+			else
+				printInvalid(stack, "sqrt");
+		}
+		else if (strcmp(s, "exp") == 0)
+		{
+			if (isEmptyDynArr(stack) == 0 && sizeDynArr(stack) >= 1)
+				exponential(stack);
+			else
+				printInvalid(stack, "exp");
+		}
+		else if (strcmp(s, "ln") == 0)
+		{
+			if (isEmptyDynArr(stack) == 0 && sizeDynArr(stack) >= 1)
+				natural_log(stack);
+			else
+				printInvalid(stack, "ln");
+		}
+		else if (strcmp(s, "log") == 0)
+		{
+			if (isEmptyDynArr(stack) == 0 && sizeDynArr(stack) >= 1)
+				base_10_log(stack);
+			else
+				printInvalid(stack, "log");
+		}
 		else 
 		{
 			// FIXME: You need to develop the code here (when s is not an operator)
@@ -277,6 +307,11 @@ double calculate(int numInputTokens, char **inputString)
 				if(isNumber(s, &number) == 1)
 				{
 					pushDynArr(stack, number);
+				}
+				else
+				{
+					printf("Invalid number: %s", s);
+					exit(1);
 				}
 			}
 		}
