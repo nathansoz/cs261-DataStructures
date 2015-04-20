@@ -333,11 +333,15 @@ double calculate(int numInputTokens, char **inputString)
 		for (int i = 0; i < finalStackSize; i++)
 			printf("%f ", getDynArr(stack, i));
 
-		printf("\n");
+		printf("\nDid you forget an operator?\n");
 		exit(1);
 	}
 
 	printf("The result is %f\n", result);
+
+	//clean up the memory that we used
+	deleteDynArr(stack);
+
 	return result;
 }
 
