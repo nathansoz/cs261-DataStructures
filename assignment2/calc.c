@@ -36,6 +36,22 @@ int isNumber(char *s, double *num)
 	return 0;  //if got here, it was not a number
 }
 
+void printInvalid(struct DynArr *stack, char op)
+{
+	int size = sizeDynArr(stack);
+	int i;
+
+	printf("Invalid calculation string: ");
+	for (i = 0; i < size; i++)
+	{
+		printf("%f ", getDynArr(stack, i));
+	}
+	printf("%c", op);
+
+	exit(1);
+	
+}
+
 /*	param: stack the stack being manipulated
 	pre: the stack contains at least two elements
 	post: the top two elements are popped and 
@@ -167,6 +183,8 @@ double calculate(int numInputTokens, char **inputString)
 	//set up the stack
 	stack = createDynArr(20);
 
+	isEmptyDynArray(stack)
+
 	// start at 1 to skip the name of the calculator calc
 	for(i=1;i < numInputTokens;i++) 
 	{
@@ -179,14 +197,35 @@ double calculate(int numInputTokens, char **inputString)
 		//     (1b - I) If s is not a number, produce an error.
 		//     (1b - II) If s is a number, push it onto the stack
 
-		if(strcmp(s, "+") == 0)
-			add(stack);
-		else if(strcmp(s,"-") == 0)
-			subtract(stack);
-		else if(strcmp(s, "/") == 0)
-			divide(stack);
-		else if(strcmp(s, "x") == 0)
-			multiply(stack);
+		if (strcmp(s, "+") == 0)
+		{
+			if (sizeDynArr(stack) >= 2)
+				add(stack);
+			else
+				printInvalid(stack, '+');
+		}
+		else if (strcmp(s, "-") == 0)
+		{
+			if (sizeDynArr(stack) >= 2)
+				subtract(stack);
+			else
+				printInvalid(stack, '-');
+		}
+		
+		else if (strcmp(s, "/") == 0)
+		{
+			if (sizeDynArr >= 2)
+				divide(stack);
+			else
+				printInvalid(stack, '/');
+		}
+		else if (strcmp(s, "x") == 0)
+		{
+			if (sizeDynArr >= 2)
+				multiply(stack);
+			else
+				printInvalid(stack, 'x');
+		}
 		else if(strcmp(s, "^") == 0)
 			power(stack);
 		else if(strcmp(s, "^2") == 0)
@@ -233,6 +272,19 @@ double calculate(int numInputTokens, char **inputString)
 	 */
 	result = topDynArr(stack);
 	popDynArr(stack);
+
+	int finalStackSize = sizeDynArr(stack);
+
+	if (finalStackSize != 0)
+	{
+		printf("Error! Items left on stack: ");
+		
+		for (int i = 0; i < finalStackSize; i++)
+			printf("%f ", getDynArr(stack, i));
+
+		exit(1);
+	}
+
 	printf("The result is %f\n", result);
 	return result;
 }
@@ -243,7 +295,7 @@ int main(int argc , char** argv)
 	// argc-1 determines the number of operands + operators
 	if (argc == 1)
 		return 0;
-
+	
 	calculate(argc,argv);
 
 	return 0;
