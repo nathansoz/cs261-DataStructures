@@ -36,17 +36,22 @@ int isNumber(char *s, double *num)
 	return 0;  //if got here, it was not a number
 }
 
-void printInvalid(struct DynArr *stack, char op)
+void printInvalid(struct DynArr *stack, char* op)
 {
-	int size = sizeDynArr(stack);
-	int i;
+	int size;
+
+	if (isEmptyDynArr(stack) == 0)
+		size = sizeDynArr(stack);
+	else
+		size = 0;
+	
 
 	printf("Invalid calculation string: ");
-	for (i = 0; i < size; i++)
+	for (int i = 0; i < size; i++)
 	{
 		printf("%f ", getDynArr(stack, i));
 	}
-	printf("%c", op);
+	printf("%s", op);
 
 	exit(1);
 	
@@ -183,7 +188,7 @@ double calculate(int numInputTokens, char **inputString)
 	//set up the stack
 	stack = createDynArr(20);
 
-	isEmptyDynArray(stack)
+	
 
 	// start at 1 to skip the name of the calculator calc
 	for(i=1;i < numInputTokens;i++) 
@@ -199,37 +204,48 @@ double calculate(int numInputTokens, char **inputString)
 
 		if (strcmp(s, "+") == 0)
 		{
-			if (sizeDynArr(stack) >= 2)
+			if (isEmptyDynArr(stack) == 0 && sizeDynArr(stack) >= 2)
 				add(stack);
 			else
-				printInvalid(stack, '+');
+				printInvalid(stack, "+");
 		}
 		else if (strcmp(s, "-") == 0)
 		{
-			if (sizeDynArr(stack) >= 2)
+			if (isEmptyDynArr(stack) == 0 && sizeDynArr(stack) >= 2)
 				subtract(stack);
 			else
-				printInvalid(stack, '-');
+				printInvalid(stack, "-");
 		}
 		
 		else if (strcmp(s, "/") == 0)
 		{
-			if (sizeDynArr >= 2)
+			if (isEmptyDynArr(stack) == 0 && sizeDynArr(stack) >= 2)
 				divide(stack);
 			else
-				printInvalid(stack, '/');
+				printInvalid(stack, "/");
 		}
 		else if (strcmp(s, "x") == 0)
 		{
-			if (sizeDynArr >= 2)
+			if (isEmptyDynArr(stack) == 0 && sizeDynArr(stack) >= 2)
 				multiply(stack);
 			else
-				printInvalid(stack, 'x');
+				printInvalid(stack, "x");
 		}
-		else if(strcmp(s, "^") == 0)
-			power(stack);
-		else if(strcmp(s, "^2") == 0)
-			square(stack);
+		else if (strcmp(s, "^") == 0)
+		{
+
+			if (isEmptyDynArr(stack) == 0 && sizeDynArr(stack) >= 2)
+				power(stack);
+			else
+				printInvalid(stack, "^");
+		}
+		else if (strcmp(s, "^2") == 0)
+		{
+			if (isEmptyDynArr(stack) == 0 && sizeDynArr(stack) >= 1)
+				square(stack);
+			else
+				printInvalid(stack, "^2");
+		}
 		else if(strcmp(s, "^3") == 0)
 			cube(stack);
 		else if(strcmp(s, "abs") == 0)
