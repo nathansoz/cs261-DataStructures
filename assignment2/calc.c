@@ -52,7 +52,7 @@ void printInvalid(struct DynArr *stack, char* op)
 		printf("%f ", getDynArr(stack, i));
 	}
 	printf("%s\n", op);
-
+	deleteDynArr(stack);
 	exit(1);
 	
 }
@@ -334,6 +334,7 @@ double calculate(int numInputTokens, char **inputString)
 			printf("%f ", getDynArr(stack, i));
 
 		printf("\nDid you forget an operator?\n");
+		deleteDynArr(stack);
 		exit(1);
 	}
 
