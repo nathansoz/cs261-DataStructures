@@ -284,3 +284,18 @@ void removeList (struct linkedList *lst, TYPE e) {
 			tmp = tmp->next;
 	}
 }
+
+void deleteLinkedList (struct linkedList *lst) {
+
+	struct DLink *curLink = lst->firstLink;
+
+	while(curLink != lst->lastLink)
+	{
+		curLink = curLink->next;
+		free(curLink->prev);
+	}
+
+	free(lst->lastLink);
+
+	free(lst);
+}
