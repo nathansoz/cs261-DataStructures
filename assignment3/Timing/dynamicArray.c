@@ -90,8 +90,22 @@ void deleteDynArr(DynArr *v)
 	post:	v has capacity newCap
 */
 void _dynArrSetCapacity(DynArr *v, int newCap)
-{	
-	/* FIXME: You will write this function */
+{
+	if(v->capacity == newCap)
+		return;
+	else if(v->capacity > newCap)
+		return;
+	else
+	{
+		TYPE* newArr = malloc(sizeof(TYPE) * newCap);
+
+		for(int i = 0; i < v->size; i++)
+			newArr[i] = v->data[i];
+
+		TYPE* oldArr = v->data;
+		v->data = newArr;
+		free(oldArr);
+	}
 	
 }
 
@@ -118,7 +132,14 @@ int sizeDynArr(DynArr *v)
 */
 void addDynArr(DynArr *v, TYPE val)
 {
-	/* FIXME: You will write this function */
+	assert(v != 0);
+
+	if(v->size == v->capacity)
+		_dynArrSetCapacity(v, (v->size * 2));
+
+	v->data[v->size] = val;
+
+	v->size++;
 
 }
 
@@ -135,10 +156,11 @@ void addDynArr(DynArr *v, TYPE val)
 
 TYPE getDynArr(DynArr *v, int pos)
 {
-	/* FIXME: You will write this function */
+	assert(v != 0);
+	assert(v->size != 0);
+	assert(pos < v->size);
 
-	/* FIXME: you must change this return value */
-	return 1; 
+	return v->data[pos];
 }
 
 /*	Put an item into the dynamic array at the specified location,
