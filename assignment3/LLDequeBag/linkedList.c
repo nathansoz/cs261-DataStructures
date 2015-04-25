@@ -219,8 +219,13 @@ int isEmptyList(struct linkedList *lst) {
  */
 void _printList(struct linkedList* lst)
 {
-	/* FIXME: you must write this */
+	struct DLink *curLink = lst->firstLink;
 
+	while(curLink != lst->lastLink)
+	{
+		curLink = curLink->next;
+		printf("%d", curLink->value);
+	}
 }
 
 /* 

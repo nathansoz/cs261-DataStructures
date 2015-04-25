@@ -63,6 +63,7 @@ int main(int argc, char* argv[]){
 	printf("Time for running contains() on %d elements: %g ms\n", n, t2-t1);
 	
 	/* delete the linked list */
+
 	deleteLinkedList(b);
 	
 	return 0;

@@ -24,7 +24,23 @@ set(assignment_2_calc_FILES
     "assignment2/calc.c"
 )
 
+set(assignment3_lld_FILES
+    "assignment3/LLDequeBag/linkedList.h"
+    "assignment3/LLDequeBag/linkedList.c"
+    "assignment3/LLDequeBag/linkedListMain.c"
+)
+
+set(assignment3_dynarr_FILES
+    "assignment3/Timing/dynamicArray.h"
+    "assignment3/Timing/dynamicArray.c"
+    "assignment3/Timing/dynamicArrayMain.c"
+)
+
 add_executable(assignment2_test ${assignment_2_test_FILES})
 add_executable(assignment2_calc ${assignment_2_calc_FILES})
 
 target_link_libraries(assignment2_calc m)
+
+add_executable(assignment3_lldb ${assignment3_lld_FILES})
+
+add_executable(assignment3_dyn ${assignment3_dynarr_FILES})
