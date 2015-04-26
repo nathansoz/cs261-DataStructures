@@ -36,6 +36,12 @@ set(assignment3_dynarr_FILES
     "assignment3/Timing/dynamicArrayMain.c"
 )
 
+set(assignment3_cir_FILES
+    "assignment3/CirListDeque/cirListDeque.h"
+    "assignment3/CirListDeque/cirListDeque.c"
+    "assignment3/CirListDeque/listDequeTest.c"
+)
+
 add_executable(assignment2_test ${assignment_2_test_FILES})
 add_executable(assignment2_calc ${assignment_2_calc_FILES})
 
@@ -44,3 +50,4 @@ target_link_libraries(assignment2_calc m)
 add_executable(assignment3_lldb ${assignment3_lld_FILES})
 
 add_executable(assignment3_dyn ${assignment3_dynarr_FILES})
+add_executable(assignment3_cir ${assignment3_cir_FILES})
