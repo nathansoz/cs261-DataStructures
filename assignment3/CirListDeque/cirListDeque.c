@@ -41,6 +41,8 @@ void _removeLink(struct cirListDeque *q, struct DLink *lnk);
 */
 void _initCirListDeque (struct cirListDeque *q) 
 {
+	assert(q != 0);
+
   	q->Sentinel = malloc(sizeof(struct DLink));
 
 	q->Sentinel->next = q->Sentinel;
@@ -113,6 +115,8 @@ void _addLinkAfter(struct cirListDeque *q, struct DLink *lnk, TYPE v)
 */
 void addBackCirListDeque (struct cirListDeque *q, TYPE val) 
 {
+	assert(q != 0);
+
 	_addLinkAfter(q, q->Sentinel->prev, val);
 }
 
@@ -125,6 +129,8 @@ void addBackCirListDeque (struct cirListDeque *q, TYPE val)
 */
 void addFrontCirListDeque(struct cirListDeque *q, TYPE val)
 {
+	assert(q != 0);
+
 	_addLinkAfter(q, q->Sentinel, val);
 
 }
@@ -138,6 +144,9 @@ void addFrontCirListDeque(struct cirListDeque *q, TYPE val)
 */
 TYPE frontCirListDeque(struct cirListDeque *q) 
 {
+	assert(q != 0);
+	assert(q->size > 0);
+
 	return q->Sentinel->next->value;
 }
 
@@ -150,6 +159,8 @@ TYPE frontCirListDeque(struct cirListDeque *q)
 */
 TYPE backCirListDeque(struct cirListDeque *q)
 {
+	assert(q != 0);
+	assert(q->size > 0);
 	return q->Sentinel->prev->value;
 }
 
@@ -162,6 +173,9 @@ TYPE backCirListDeque(struct cirListDeque *q)
 */
 void _removeLink(struct cirListDeque *q, struct DLink *lnk)
 {
+	assert(q != 0);
+	assert(q->size > 0);
+
 	lnk->next->prev = lnk->prev;
 	lnk->prev->next = lnk->next;
 
@@ -177,6 +191,9 @@ void _removeLink(struct cirListDeque *q, struct DLink *lnk)
 	post:	the front is removed from the deque
 */
 void removeFrontCirListDeque (struct cirListDeque *q) {
+	assert(q != 0);
+	assert(q->size > 0);
+
 	_removeLink(q, q->Sentinel->next);
 }
 
@@ -189,6 +206,9 @@ void removeFrontCirListDeque (struct cirListDeque *q) {
 */
 void removeBackCirListDeque(struct cirListDeque *q)
 {
+	assert(q != 0);
+	assert(q->size > 0);
+
   	_removeLink(q, q->Sentinel->prev);
 }
 
@@ -233,6 +253,9 @@ int isEmptyCirListDeque(struct cirListDeque *q) {
 */
 void printCirListDeque(struct cirListDeque *q)
 {
+	assert(q != 0);
+	assert(q->size > 0);
+
 	struct DLink* curSent = q->Sentinel->next;
 
 	while(curSent != q->Sentinel)
@@ -272,6 +295,9 @@ void _reverseLinks(struct DLink *lnk)
 
 void reverseCirListDeque(struct cirListDeque *q)
 {
+	assert(q != 0);
+	assert(q->size > 0);
+
 	struct DLink* operateLink = q->Sentinel;
 
 	do

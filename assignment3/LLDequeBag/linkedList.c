@@ -127,6 +127,7 @@ void addBackList(struct linkedList *lst, TYPE e) {
 
 TYPE frontList (struct linkedList *lst) {
 	assert(lst != 0);
+	assert(lst->size > 0);
 
 	return(lst->firstLink->next->value);
 }
@@ -142,6 +143,8 @@ TYPE frontList (struct linkedList *lst) {
 TYPE backList(struct linkedList *lst)
 {
 	assert(lst != 0);
+	assert(lst->size > 0);
+
 	return(lst->lastLink->prev->value);
 }
 
@@ -157,6 +160,7 @@ TYPE backList(struct linkedList *lst)
 void _removeLink(struct linkedList *lst, struct DLink *l)
 {
 	assert(lst != 0);
+	assert(l != 0);
 
 	l->prev->next = l->next;
 	l->next->prev = l->prev;
@@ -207,6 +211,9 @@ void removeBackList(struct linkedList *lst)
 */
 
 int isEmptyList(struct linkedList *lst) {
+
+	assert(lst != 0);
+
 	if (lst->size > 0)
 		return 0;
 	else
@@ -219,6 +226,8 @@ int isEmptyList(struct linkedList *lst) {
  */
 void _printList(struct linkedList* lst)
 {
+	assert(lst != 0);
+
 	struct DLink *curLink = lst->firstLink;
 
 	while(curLink != lst->lastLink)
@@ -237,6 +246,8 @@ void _printList(struct linkedList* lst)
  */
 void addList(struct linkedList *lst, TYPE v)
 {
+	assert(lst != 0);
+
 	addFrontList(lst, v);
 }
 
@@ -252,7 +263,11 @@ void addList(struct linkedList *lst, TYPE v)
 	post:	no changes to the bag
 */
 int containsList (struct linkedList *lst, TYPE e) {
-	
+
+	assert(lst != 0);
+	assert(lst->size > 0);
+
+
 	struct DLink *tmp = lst->firstLink->next;
 
 	for (int i = 0; i < lst->size; i++)
@@ -278,6 +293,10 @@ int containsList (struct linkedList *lst, TYPE e) {
 	post:	size of the bag is reduced by 1
 */
 void removeList (struct linkedList *lst, TYPE e) {
+
+	assert(lst != 0);
+	assert(lst->size > 0);
+
 	struct DLink *tmp = lst->firstLink->next;
 
 	for (int i = 0; i < lst->size; i++)
@@ -291,6 +310,8 @@ void removeList (struct linkedList *lst, TYPE e) {
 }
 
 void deleteLinkedList (struct linkedList *lst) {
+
+	assert(lst != 0);
 
 	struct DLink *curLink = lst->firstLink;
 
