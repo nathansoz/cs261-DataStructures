@@ -42,6 +42,13 @@ set(assignment3_cir_FILES
     "assignment3/CirListDeque/listDequeTest.c"
 )
 
+set(assignment4_FILES
+    "assignment4/bst.c"
+    "assignment4/bst.h"
+    "assignment4/compare.c"
+    "assignment4/structs.h"
+)
+
 add_executable(assignment2_test ${assignment_2_test_FILES})
 add_executable(assignment2_calc ${assignment_2_calc_FILES})
 
@@ -51,3 +58,4 @@ add_executable(assignment3_lldb ${assignment3_lld_FILES})
 
 add_executable(assignment3_dyn ${assignment3_dynarr_FILES})
 add_executable(assignment3_cir ${assignment3_cir_FILES})
+add_executable(assignment4 ${assignment4_FILES})
