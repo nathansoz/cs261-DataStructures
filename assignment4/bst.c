@@ -201,8 +201,12 @@ int containsBSTree(struct BSTree *tree, TYPE val)
 /*----------------------------------------------------------------------------*/
 TYPE _leftMost(struct Node *cur)
 {
-	/*write this*/
-	return NULL;
+	struct Node * loopNode = cur;
+
+    while(loopNode->left != 0)
+        loopNode = loopNode->left;
+
+	return loopNode->val;
 }
 
 
@@ -220,8 +224,16 @@ Note:  If you do this iteratively, the above hint does not apply.
 /*----------------------------------------------------------------------------*/
 struct Node *_removeLeftMost(struct Node *cur)
 {
-	/*write this*/
-	return NULL;
+	if(cur->left == 0)
+    {
+        struct Node* retNode = cur->right;
+        free(cur);
+        return retNode;
+    }
+    else
+        cur->left = _removeLeftMost(cur->left);
+
+    return cur;
 }
 /*
  recursive helper function to remove a node from the tree
@@ -235,10 +247,35 @@ struct Node *_removeLeftMost(struct Node *cur)
 /*----------------------------------------------------------------------------*/
 struct Node *_removeNode(struct Node *cur, TYPE val)
 {
-	/*write this*/
-		return NULL;
-
+    if(compare(val, cur->val) == -1)
+        cur->left = _removeNode(cur->left, val);
+    else if(compare(val, cur->val) == 1)
+        cur->right = _removeNode(cur->right, val);
+    else
+    {
+        if (cur->left == 0 && cur->right == 0)
+            return NULL;
+        else if (cur->left == 0) {
+            struct Node *retval = cur->right;
+            free(cur);
+            return retval;
+        }
+        else if (cur->right == 0) {
+            struct Node *retval = cur->left;
+            free(cur);
+            return retval;
+        }
+        else {
+            cur->val = _leftMost(cur->right);
+            cur->right = _removeLeftMost(cur->right);
+        }
+    }
+    return cur;
 }
+
+
+
+
 /*
  function to remove a value from the binary search tree
  param: tree   the binary search tree
@@ -526,13 +563,13 @@ int main(int argc, char *argv[]){
    testContainsBSTree();
 	
 	printf("\n");
-    //testLeftMost();
+    testLeftMost();
 	
 	printf("\n");
-    //testRemoveLeftMost();
+    testRemoveLeftMost();
 	
 	printf("\n");
-    //testRemoveNode();
+    testRemoveNode();
     
 	
 	return 0;
