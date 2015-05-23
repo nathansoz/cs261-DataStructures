@@ -157,9 +157,9 @@ void deleteList(DynArr *heap)
  */
 int compare(TYPE left, TYPE right)
 {
-	if (left->priority < right->priority)
+	if (((Task*)left)->priority < ((Task*)right)->priority)
 		return -1;
-	else if (left->priority > right->priority)
+	else if (((Task*)left)->priority >((Task*)right)->priority)
 		return 1;
 	else
 		return 0;
