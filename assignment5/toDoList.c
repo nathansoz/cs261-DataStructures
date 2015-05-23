@@ -100,7 +100,17 @@ void loadList(DynArr *heap, FILE *filePtr)
 */
 void printList(DynArr *heap)
 {
-    /* FIXME: Write this */
+	DynArr* tmpList = createDynArr(sizeDynArr(heap));
+	copyDynArr(heap, tmpList);
+	sortHeap(tmpList);
+	for (int i = sizeDynArr(heap) - 1; i >= 0; i--)
+	{
+		Task* t = getDynArr(tmpList, i);
+		printf("%d      %s\n", t->priority, t->description);
+	}
+
+	deleteDynArr(tmpList);
+	
 }
 
 /*  Delete the list
@@ -147,7 +157,12 @@ void deleteList(DynArr *heap)
  */
 int compare(TYPE left, TYPE right)
 {
-    /*FIXME: write this*/
+	if (left->priority < right->priority)
+		return -1;
+	else if (left->priority > right->priority)
+		return 1;
+	else
+		return 0;
 }
 
 /*Define this function, type casting the value of void * to the desired type*/

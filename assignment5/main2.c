@@ -5,7 +5,8 @@
 #include "dynamicArray.h"
 #include "toDoList.h"
 
-#define TESTSORT
+#define TESTHEAP
+//#define TESTSORT
 int main(int argc, const char * argv[])
 {
   Task *task1, *task2, *task3, *task4, *task5, *task6, *task7, *task8, *task9, *task10;
@@ -39,9 +40,9 @@ int main(int argc, const char * argv[])
 
 #ifdef TESTHEAP
 	for(i = 0; i < sizeDynArr(mainList);i++)
-		printf("DynArr[%d] = %d\n", i, getDynArr(mainList,i).priority);
+		printf("DynArr[%d] = %d\n", i, getDynArr(mainList,i)->priority);
 
-
+	
 	while(!isEmptyDynArr(mainList))
 	{
 		TYPE v;

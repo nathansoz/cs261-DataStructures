@@ -488,7 +488,64 @@ void addHeap(DynArr *heap, TYPE val)
 */
 void _adjustHeap(DynArr *heap, int max, int pos)
 {
-   /* FIXME */
+	int leftChild = (pos * 2) + 1;
+	int rightChild = (pos * 2) + 2;
+	int leftChildExists = 0;
+	int rightChildExists = 0;
+
+	if (leftChild < max)
+		leftChildExists = 1;
+	if (rightChild < max)
+		rightChildExists = 1;
+
+	if (leftChildExists && rightChildExists)
+	{
+		if (_smallerIndexHeap(heap, leftChild, rightChild) == leftChild)
+		{
+
+			if (_smallerIndexHeap(heap, pos, leftChild) == leftChild)
+			{
+				swapDynArr(heap, pos, leftChild);
+				_adjustHeap(heap, max, leftChild);
+			}
+			if (_smallerIndexHeap(heap, pos, rightChild) == rightChild)
+			{
+				swapDynArr(heap, pos, rightChild);
+				_adjustHeap(heap, max, rightChild);
+			}
+		}
+		else
+		{
+			if (_smallerIndexHeap(heap, pos, rightChild) == rightChild)
+			{
+				swapDynArr(heap, pos, rightChild);
+				_adjustHeap(heap, max, rightChild);
+			}
+			if (_smallerIndexHeap(heap, pos, leftChild) == leftChild)
+			{
+				swapDynArr(heap, pos, leftChild);
+				_adjustHeap(heap, max, leftChild);
+			}
+		}
+
+	}
+	else if (leftChildExists)
+	{
+		if (_smallerIndexHeap(heap, pos, leftChild) == leftChild)
+		{
+			swapDynArr(heap, pos, leftChild);
+			_adjustHeap(heap, max, leftChild);
+		}
+	}
+	else if (rightChildExists)
+	{
+		if (_smallerIndexHeap(heap, pos, rightChild) == rightChild)
+		{
+			swapDynArr(heap, pos, rightChild);
+			_adjustHeap(heap, max, rightChild);
+		}
+	}
+
 }
 
 /*	Remove the first node, which has the min priority, from the heap
@@ -499,8 +556,10 @@ void _adjustHeap(DynArr *heap, int max, int pos)
 */
 void removeMinHeap(DynArr *heap)
 {
-   /* FIXME */
-
+	int last = heap->size - 1;
+	heap->data[0] = heap->data[last];
+	removeAtDynArr(heap, last);
+	_adjustHeap(heap, heap->size, 0);
 }
 
 /* builds a heap from an arbitrary dynArray
@@ -512,7 +571,10 @@ void removeMinHeap(DynArr *heap)
 
 void _buildHeap(DynArr *heap)
 {
-    /* FIXME */
+	int firstLeaf = (heap->size / 2) - 1;
+	
+	for (int i = firstLeaf; i >= 0; i--)
+		_adjustHeap(heap, heap->size, i);
 }
 /*
     In-place sort of the heap
@@ -525,6 +587,16 @@ void _buildHeap(DynArr *heap)
 void sortHeap(DynArr *heap)
 {
    /* FIXME */
+	_buildHeap(heap);
 
+	int last = heap->size - 1;
+
+	while (last > 0)
+	{
+		swapDynArr(heap, 0, last);
+		_adjustHeap(heap, last, 0);
+		last--;
+	}
+	int b;
 }
 
