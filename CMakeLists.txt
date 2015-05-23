@@ -49,12 +49,19 @@ set(assignment4_FILES
     "assignment4/structs.h"
 )
 
-set(assignment5_heap_FILES
+set(assignment5_heapTest_FILES
     "assignment5/toDoList.c"
     "assignment5/toDoList.h"
     "assignment5/dynamicArray.c"
     "assignment5/dynamicArray.h"
     "assignment5/main2.c"
+)
+set(assignment5_toDoList_FILES
+    "assignment5/toDoList.c"
+    "assignment5/toDoList.h"
+    "assignment5/dynamicArray.c"
+    "assignment5/dynamicArray.h"
+    "assignment5/main.c"
 )
 
 add_executable(assignment2_test ${assignment_2_test_FILES})
@@ -68,3 +75,4 @@ add_executable(assignment3_dyn ${assignment3_dynarr_FILES})
 add_executable(assignment3_cir ${assignment3_cir_FILES})
 add_executable(assignment4 ${assignment4_FILES})
 add_executable(assignment5_heap ${assignment5_heap_FILES})
+add_executable(assignment5_toDo ${assignment5_toDoList_FILES})
