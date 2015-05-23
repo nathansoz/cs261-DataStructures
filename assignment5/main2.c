@@ -40,14 +40,14 @@ int main(int argc, const char * argv[])
 
 #ifdef TESTHEAP
 	for(i = 0; i < sizeDynArr(mainList);i++)
-		printf("DynArr[%d] = %d\n", i, getDynArr(mainList,i)->priority);
+		printf("DynArr[%d] = %d\n", i, ((Task*)getDynArr(mainList,i))->priority);
 
 	
 	while(!isEmptyDynArr(mainList))
 	{
 		TYPE v;
 		v = getMinHeap(mainList);
-		printf("Val = %s ___%d\n", v->description, v->priority);
+		printf("Val = %s ___%d\n", ((Task*)v)->description, ((Task*)v)->priority);
 		removeMinHeap(mainList);
 	}
 #endif
