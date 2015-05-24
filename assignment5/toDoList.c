@@ -100,17 +100,28 @@ void loadList(DynArr *heap, FILE *filePtr)
 */
 void printList(DynArr *heap)
 {
-	DynArr* tmpList = createDynArr(sizeDynArr(heap));
-	copyDynArr(heap, tmpList);
-	sortHeap(tmpList);
+	//Create a new container for after we trash our other one by sorting
+	DynArr *tmpArr = createDynArr(sizeDynArr(heap));
+
+
+	sortHeap(heap);
 	for (int i = sizeDynArr(heap) - 1; i >= 0; i--)
 	{
-		Task* t = getDynArr(tmpList, i);
+		Task* t = getDynArr(heap, i);
 		printf("%d      %s\n", t->priority, t->description);
+
+		addHeap(tmpArr, createTask(t->priority, t->description));
 	}
 
-	deleteDynArr(tmpList);
-	
+	//Copy the data back, freeing as we go
+	for(int i = 0; i < sizeDynArr(heap); i++)
+	{
+		free(getDynArr(heap, i));
+		putDynArr(heap, i, getDynArr(tmpArr, i));
+
+	}
+
+	deleteDynArr(tmpArr);
 }
 
 /*  Delete the list

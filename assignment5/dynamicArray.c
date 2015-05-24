@@ -586,7 +586,6 @@ void _buildHeap(DynArr *heap)
 
 void sortHeap(DynArr *heap)
 {
-   /* FIXME */
 	_buildHeap(heap);
 
 	int last = heap->size - 1;
