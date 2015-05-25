@@ -596,6 +596,5 @@ void sortHeap(DynArr *heap)
 		_adjustHeap(heap, last, 0);
 		last--;
 	}
-	int b;
 }
 
