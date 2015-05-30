@@ -63,6 +63,8 @@ int main (int argc, const char * argv[]) {
 		{
 			insertMap(hashTable, word, *occurances + 1);
 		}
+		
+		free(word);
 	}
 		
 	/*... concordance code ends here ...*/
@@ -84,6 +86,7 @@ int main (int argc, const char * argv[]) {
 		
 	deleteMap(hashTable);
 	printf("\nDeleted the table\n");   
+	fclose(fileptr);
 	return 0;
 }
 
