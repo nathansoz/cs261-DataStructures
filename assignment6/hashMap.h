@@ -11,9 +11,9 @@
  hashing functions that your code uses. you are not required to use this value
  though.
  */
-# define HASHING_FUNCTION 2
+# define HASHING_FUNCTION 1
 
-# define LOAD_FACTOR_THRESHOLD 10.00
+# define LOAD_FACTOR_THRESHOLD 0.75
 
 struct hashLink
 {
