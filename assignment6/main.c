@@ -33,10 +33,16 @@ int main (int argc, const char * argv[]) {
     if(argc == 2)
         filename = argv[1];
     else
-        filename = "c:\\Users\\nsosnov\\input1.txt"; /*specify your input text file here*/
+        filename = "input1.txt"; /*specify your input text file here*/
     
     printf("opening file: %s\n", filename);
 	fileptr = fopen(filename, "r");
+
+	if (fileptr == NULL)
+	{
+		printf("No file %s exists!", filename);
+		return 1;
+	}
     
 	timer = clock();
 	
