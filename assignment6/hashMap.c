@@ -71,7 +71,7 @@ void _freeMap (struct hashMap * ht)
 			currentLink = nextLink;
 		} while (nextLink != NULL);
 	}
-
+	free(ht->table);
 	ht->table = NULL;
 }
 
