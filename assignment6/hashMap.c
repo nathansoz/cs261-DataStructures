@@ -150,7 +150,10 @@ void insertMap (struct hashMap * ht, KeyType k, ValueType v)
 		ht->table[hash]->value = v;
 		ht->table[hash]->next = NULL;
 
-		ht->count++;
+		/* increments the count of objects, calculates the load factor, and compares */
+		if (((float)(++(ht->count)) / (float)(ht->tableSize)) > LOAD_FACTOR_THRESHOLD)
+			_setTableSize(ht, (ht->tableSize * 2));
+
 		return;
 	}
 	
