@@ -97,12 +97,12 @@ void _setTableSize(struct hashMap * ht, int newTableSize)
 			continue;
 
 		hashLink* currentLink = ht->table[i];
-		hashLink* nextLink = NULL;
+
 		do
 		{
-			nextLink = currentLink->next;
 			insertMap(tmpMap, currentLink->key, currentLink->value);
-		} while (nextLink != NULL);
+			currentLink = currentLink->next;
+		} while (currentLink != NULL);
 	}
 
 	_freeMap(ht);
@@ -151,22 +151,12 @@ void insertMap (struct hashMap * ht, KeyType k, ValueType v)
 		ht->table[hash]->next = NULL;
 
 		ht->count++;
-		
 		return;
 	}
 	
 	else if (strcmp(currentLink->key, k) == 0)
 	{
-		hashLink* tmpNext = currentLink->next;
-		hashLink* newLink = malloc(sizeof(hashLink));
-		
-		currentLink->key = malloc(sizeof(char) * (strlen(k) + 1)); strcpy(currentLink->key, k);
-		newLink->value = v;
-		newLink->next = tmpNext;
-
-		free(currentLink);
-		currentLink = newLink;
-
+		currentLink->value = v;
 		return;
 	}
 	else
@@ -175,20 +165,7 @@ void insertMap (struct hashMap * ht, KeyType k, ValueType v)
 		{
 			if (strcmp(currentLink->next->key, k) == 0)
 			{
-				hashLink* tmpNext = currentLink->next;
-				hashLink* newLink = malloc(sizeof(hashLink));
-
-				currentLink->key = malloc(sizeof(char) * (strlen(k) + 1)); strcpy(currentLink->key, k);
-				newLink->value = v;
-				newLink->next = tmpNext;
-
-				free(currentLink);
-				currentLink = newLink;
-
-				/* increments the count of objects, calculates the load factor, and compares */
-				if (((float)(++(ht->count)) / (float)(ht->tableSize)) > LOAD_FACTOR_THRESHOLD)
-					_setTableSize(ht, (ht->tableSize * 2));
-
+				currentLink->value = v;
 				return;
 			}
 
@@ -203,6 +180,10 @@ void insertMap (struct hashMap * ht, KeyType k, ValueType v)
 		newLink->next = NULL;
 
 		currentLink->next = newLink;
+
+		/* increments the count of objects, calculates the load factor, and compares */
+		if (((float)(++(ht->count)) / (float)(ht->tableSize)) > LOAD_FACTOR_THRESHOLD)
+			_setTableSize(ht, (ht->tableSize * 2));
 
 		return;
 

@@ -33,18 +33,37 @@ int main (int argc, const char * argv[]) {
     if(argc == 2)
         filename = argv[1];
     else
-        filename = "input1.txt"; /*specify your input text file here*/
+        filename = "c:\\Users\\nsosnov\\input1.txt"; /*specify your input text file here*/
     
     printf("opening file: %s\n", filename);
+	fileptr = fopen(filename, "r");
+	if (!fileptr)
+	{
+		perror(filename);
+		exit(1);
+	}
     
 	timer = clock();
 	
 	hashTable = createMap(tableSize);	   
 	
     /*... concordance code goes here ...*/
-	insertMap(hashTable, "test", 1);
-	insertMap(hashTable, "tset", 2);
-	insertMap(hashTable, "awesome", 12);
+	//while (1)
+	while (1)
+	{
+		char* word = getWord(fileptr);
+		if (word == NULL)
+			break;
+
+		int * occurances = atMap(hashTable, word);
+
+		if (occurances == NULL)
+			insertMap(hashTable, word, 1);
+		else
+		{
+			insertMap(hashTable, word, *occurances + 1);
+		}
+	}
 		
 	/*... concordance code ends here ...*/
 
