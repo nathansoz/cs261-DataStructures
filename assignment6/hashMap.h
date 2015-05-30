@@ -13,7 +13,7 @@
  */
 # define HASHING_FUNCTION 2
 
-# define LOAD_FACTOR_THRESHOLD 0.75
+# define LOAD_FACTOR_THRESHOLD 10.00
 
 struct hashLink
 {

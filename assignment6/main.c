@@ -37,18 +37,11 @@ int main (int argc, const char * argv[]) {
     
     printf("opening file: %s\n", filename);
 	fileptr = fopen(filename, "r");
-	if (!fileptr)
-	{
-		perror(filename);
-		exit(1);
-	}
     
 	timer = clock();
 	
 	hashTable = createMap(tableSize);	   
-	
-    /*... concordance code goes here ...*/
-	//while (1)
+
 	while (1)
 	{
 		char* word = getWord(fileptr);
@@ -66,8 +59,6 @@ int main (int argc, const char * argv[]) {
 		
 		free(word);
 	}
-		
-	/*... concordance code ends here ...*/
 
 	printMap(hashTable);
 	timer = clock() - timer;
