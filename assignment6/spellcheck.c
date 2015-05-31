@@ -22,14 +22,27 @@ char* getWord(FILE *file);
  */
 void loadDictionary(FILE* file, struct hashMap* ht);
 
+char* getFileName();
+
 int main (int argc, const char * argv[]) {
   clock_t timer;
   int tableSize = 1000;
   struct hashMap* hashTable = createMap(tableSize);
+
+  char* fileName = getFileName();
+
   timer = clock();
+  FILE* dictionary = fopen(fileName, "r");
   
-  FILE* dictionary = fopen("C:\\Users\\nsosnov\\Documents\\GitHub\\cs261-DataStructures\\assignment6\\dictionary.txt", "r");
-  
+  if (dictionary == NULL)
+  {
+	  printf("No file %s exists!", fileName);
+	  free(fileName);
+	  return 1;
+  }
+  else
+	  free(fileName);
+
   loadDictionary(dictionary,hashTable);
   timer = clock() - timer;
 	printf("Dictionary loaded in %f seconds\n", (float)timer / (float)CLOCKS_PER_SEC);
@@ -50,7 +63,7 @@ int main (int argc, const char * argv[]) {
       quit=!quit;
   }
   free(word);
-     
+  free(dictionary);
   return 0;
 }
 
@@ -68,6 +81,28 @@ void loadDictionary(FILE* file, struct hashMap* ht)
 			continue;
 		}
 	}
+}
+
+char* getFileName()
+{
+	char* fileName = (char*)malloc(sizeof(char) * 1024);
+#ifdef _WIN32
+	printf("Please enter a path to a dictionary file [.\\dictionary.txt]: ");
+#else
+	printf("Please enter a path to a dictionary file [./dictionary.txt]: ");
+#endif
+	
+	fgets(fileName, 1024, stdin);
+	
+	/* strip newline*/
+	char* newline = strchr(fileName, '\n');
+	if (newline != NULL)
+		*newline = '\0';
+
+	if (strcmp(fileName, "\0") == 0)
+		strcpy(fileName, "dictionary.txt");
+
+	return fileName;
 }
 
 void printValue(ValueType v) {
