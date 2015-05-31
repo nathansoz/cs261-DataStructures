@@ -33,7 +33,7 @@ int main (int argc, const char * argv[]) {
     if(argc == 2)
         filename = argv[1];
     else
-        filename = "input1.txt"; /*specify your input text file here*/
+        filename = "c:\\users\\nsosnov\\documents\\github\\cs261-datastructures\\assignment6\\input3.txt"; /*specify your input text file here*/
     
     printf("opening file: %s\n", filename);
 	fileptr = fopen(filename, "r");
@@ -79,7 +79,6 @@ int main (int argc, const char * argv[]) {
 	removeKey(hashTable, "and");
 	removeKey(hashTable, "me");
 	removeKey(hashTable, "the");
-	removeKey(hashTable, "blistering");
 	printMap(hashTable);
 		
 	deleteMap(hashTable);

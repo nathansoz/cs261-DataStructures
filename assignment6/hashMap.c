@@ -272,6 +272,10 @@ void removeKey (struct hashMap * ht, KeyType k)
 #endif
 
 	hashLink* currentLink = ht->table[hash];
+
+	if (currentLink == NULL)
+		return;
+
 	hashLink* nextLink = ht->table[hash]->next;
 
 	if (strcmp(currentLink->key, k) == 0)
