@@ -70,7 +70,8 @@ int main (int argc, const char * argv[]) {
   }
   free(word);
   deleteMap(hashTable);
-  free(dictionary);
+  fclose(dictionary);
+  dictionary = NULL;
   return 0;
 }
 
