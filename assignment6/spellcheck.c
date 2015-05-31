@@ -24,11 +24,15 @@ char* getWord(FILE *file);
 void loadDictionary(FILE* file, struct hashMap* ht);
 
 char* getFileName();
+void makeLower(char* word);
 
 int main (int argc, const char * argv[]) {
   clock_t timer;
   int tableSize = 1000;
   struct hashMap* hashTable = createMap(tableSize);
+  const int MAX_ADDED_WORDS = 1024;
+  char** addedWords = malloc(sizeof(char*) * MAX_ADDED_WORDS);
+  int addedWordsCount = 0;
 
   char* fileName = getFileName();
 
@@ -41,8 +45,6 @@ int main (int argc, const char * argv[]) {
 	  free(fileName);
 	  return 1;
   }
-  else
-	  free(fileName);
 
   loadDictionary(dictionary,hashTable);
   timer = clock() - timer;
@@ -55,12 +57,35 @@ int main (int argc, const char * argv[]) {
     scanf("%s",word);
     
 	/*ensure we have lowercase input*/
-	size_t i;
-	for (i = 0; i < strlen(word); i++)
-		word[i] = tolower(word[i]);
+	makeLower(word);
 
 	if (atMap(hashTable, word) == NULL)
+	{
+		char* choice = (char*)malloc(256 * sizeof(char));
+
 		printf("%s appears to be misspelled or not in dictionary.\n", word);
+		printf("Would you like to add it to the dictionary? (y/n) [n]: ");
+		
+		scanf("%s", choice);
+		makeLower(choice);
+
+		if (strcmp("y", choice) == 0 || strcmp("yes", choice) == 0)
+		{
+			if (addedWordsCount >= MAX_ADDED_WORDS)
+			{
+				printf("No more words can be added to memory.\n"
+					"You may quit the program and elect to write all words in memory to the dictionary file.");
+				free(choice);
+				break;
+			}
+			
+			insertMap(hashTable, word, 0);
+			addedWords[addedWordsCount] = malloc(sizeof(char) * (strlen(word) + 1));
+			strcpy(addedWords[addedWordsCount], word);
+			addedWordsCount++;
+			free(choice);
+		}
+	}
 	else
 		printf("%s is in the dictionary.\n", word);
 
@@ -68,7 +93,52 @@ int main (int argc, const char * argv[]) {
     if(strcmp(word,"quit")==0)
       quit=!quit;
   }
+
+  if (addedWordsCount > 0)
+  {
+	  char* choice = (char*)malloc(256 * sizeof(char));
+
+	  printf("Would you like to write out the added words to the dictionary file? (y/n) [n]: ");
+	  scanf("%s", choice);
+	  makeLower(choice);
+
+	  if (strcmp("y", choice) == 0 || strcmp("yes", choice) == 0)
+	  {
+		  fclose(dictionary);
+		  dictionary = NULL;
+		  dictionary = fopen(fileName, "a+");
+		  if (dictionary == NULL)
+		  {
+			  printf("Could not open %s for writing!", fileName);
+		  }
+		  else
+		  {
+			  int i;
+			  for (i = 0; i < addedWordsCount; i++)
+			  {
+#ifdef _WIN32
+				  fprintf(dictionary, "\r\n");
+				  fprintf(dictionary, addedWords[i]);
+				  
+#else
+				  fprintf(dictionary, "\n");
+				  fprintf(dictionary, addedWords[i] + '\n');
+				  
+#endif
+			  }
+		  }
+	  }
+	  
+	  int i;
+	  for (int i = 0; i < addedWordsCount; i++)
+		  free(addedWords[i]);
+	  free(choice);
+  }
+
+
   free(word);
+  free(addedWords);
+  free(fileName);
   deleteMap(hashTable);
   fclose(dictionary);
   dictionary = NULL;
@@ -89,6 +159,13 @@ void loadDictionary(FILE* file, struct hashMap* ht)
 			continue;
 		}
 	}
+}
+
+void makeLower(char* word)
+{
+	size_t i;
+	for (i = 0; i < strlen(word); i++)
+		word[i] = tolower(word[i]);
 }
 
 char* getFileName()
