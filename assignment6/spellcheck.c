@@ -69,7 +69,7 @@ int main (int argc, const char * argv[]) {
       quit=!quit;
   }
   free(word);
-  freeMap(dictionary);
+  deleteMap(hashTable);
   free(dictionary);
   return 0;
 }
