@@ -69,6 +69,7 @@ int main (int argc, const char * argv[]) {
       quit=!quit;
   }
   free(word);
+  freeMap(dictionary);
   free(dictionary);
   return 0;
 }
