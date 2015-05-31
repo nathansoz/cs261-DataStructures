@@ -66,6 +66,19 @@ int main (int argc, const char * argv[]) {
 		free(word);
 	}
 
+	/* Print the words (case sensitive)*/
+	int i;
+	struct hashLink *temp;
+	for(i = 0;i < capacity(hashTable); i++){
+		temp = hashTable->table[i];
+		while(temp != 0){
+			printf("%s: ", temp->key);
+			printf("%d", temp->value);
+			printf("\n");
+			temp=temp->next;
+		}
+	}
+
 	printMap(hashTable);
 	timer = clock() - timer;
 	printf("\nconcordance ran in %f seconds\n", (float)timer / (float)CLOCKS_PER_SEC);
