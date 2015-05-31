@@ -53,6 +53,11 @@ int main (int argc, const char * argv[]) {
     printf("Enter a word: ");
     scanf("%s",word);
     
+	/*ensure we have lowercase input*/
+	int i;
+	for (i = 0; i < strlen(word); i++)
+		word[i] = tolower(word[i]);
+
 	if (atMap(hashTable, word) == NULL)
 		printf("%s appears to be misspelled or not in dictionary.\n", word);
 	else
