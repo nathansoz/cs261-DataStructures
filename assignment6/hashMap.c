@@ -276,9 +276,14 @@ void removeKey (struct hashMap * ht, KeyType k)
 
 	if (strcmp(currentLink->key, k))
 	{
-		free(currentLink->key);
-		ht->table[hash] = nextLink;
-		free(currentLink);
+		if (currentLink->value > 1)
+			currentLink->value--;
+		else
+		{
+			free(currentLink->key);
+			ht->table[hash] = nextLink;
+			free(currentLink);
+		}
 		return;
 	}
 
@@ -286,9 +291,14 @@ void removeKey (struct hashMap * ht, KeyType k)
 	{
 		if (strcmp(nextLink->key, k) == 0)
 		{
-			free(nextLink->key);
-			currentLink->next = nextLink->next;
-			free(nextLink);
+			if (nextLink->value > 1)
+				nextLink->value--;
+			else
+			{
+				free(nextLink->key);
+				currentLink->next = nextLink->next;
+				free(nextLink);
+			}
 		}
 		currentLink = currentLink->next;
 		nextLink = nextLink->next;
