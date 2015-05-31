@@ -24,12 +24,11 @@ void loadDictionary(FILE* file, struct hashMap* ht);
 
 int main (int argc, const char * argv[]) {
   clock_t timer;
-  struct hashMap* hashTable;
   int tableSize = 1000;
+  struct hashMap* hashTable = createMap(tableSize);
   timer = clock();
-  initMap(hashTable,tableSize);
   
-  FILE* dictionary;
+  FILE* dictionary = fopen("C:\\Users\\nsosnov\\Documents\\GitHub\\cs261-DataStructures\\assignment6\\dictionary.txt", "r");
   
   loadDictionary(dictionary,hashTable);
   timer = clock() - timer;
@@ -40,11 +39,12 @@ int main (int argc, const char * argv[]) {
   while(!quit){
     printf("Enter a word: ");
     scanf("%s",word);
-    /*
-      ... spell checker code goes here ...
-      ... You write this               ...
-    */
     
+	if (atMap(hashTable, word) == NULL)
+		printf("%s appears to be misspelled or not in dictionary.\n", word);
+	else
+		printf("%s is in the dictionary.\n", word);
+
     /* Don't remove this. It is used for grading*/
     if(strcmp(word,"quit")==0)
       quit=!quit;
@@ -56,8 +56,24 @@ int main (int argc, const char * argv[]) {
 
 void loadDictionary(FILE* file, struct hashMap* ht)
 {
-  /* You will write this*/
+	while (1)
+	{
+		char* word = getWord(file);
+		if (word == NULL)
+			break;
+		else
+		{
+			insertMap(ht, word, 0);
+			free(word);
+			continue;
+		}
+	}
 }
+
+void printValue(ValueType v) {
+	printf("Value:%d", v);
+}
+
 
 char* getWord(FILE *file)
 {
