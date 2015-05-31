@@ -245,7 +245,7 @@ int containsKey (struct hashMap * ht, KeyType k)
 
 	while (currentLink != NULL)
 	{
-		if (currentLink->key == k)
+		if (strcmp(currentLink->key, k) == 0)
 			return 1;
 		currentLink = currentLink->next;
 	}
@@ -261,7 +261,40 @@ int containsKey (struct hashMap * ht, KeyType k)
  */
 void removeKey (struct hashMap * ht, KeyType k)
 {  
-	/*write this*/	
+	int hash;
+
+#if HASHING_FUNCTION == 1
+	hash = stringHash1(k) % ht->tableSize;
+#elif (HASHING_FUNCTION == 2)
+	hash = stringHash2(k) % ht->tableSize;
+#else
+#error HASHING_FUNCTION is not valid.
+#endif
+
+	hashLink* currentLink = ht->table[hash];
+	hashLink* nextLink = ht->table[hash]->next;
+
+	if (strcmp(currentLink->key, k))
+	{
+		free(currentLink->key);
+		ht->table[hash] = nextLink;
+		free(currentLink);
+		return;
+	}
+
+	while (nextLink != NULL)
+	{
+		if (strcmp(nextLink->key, k) == 0)
+		{
+			free(nextLink->key);
+			currentLink->next = nextLink->next;
+			free(nextLink);
+		}
+		currentLink = currentLink->next;
+		nextLink = nextLink->next;
+	}
+
+	
 }
 
 /*
