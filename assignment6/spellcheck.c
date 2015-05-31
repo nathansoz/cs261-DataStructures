@@ -122,7 +122,7 @@ int main (int argc, const char * argv[]) {
 				  
 #else
 				  fprintf(dictionary, "\n");
-				  fprintf(dictionary, addedWords[i] + '\n');
+				  fprintf(dictionary, addedWords[i]);
 				  
 #endif
 			  }
