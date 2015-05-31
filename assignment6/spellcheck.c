@@ -76,15 +76,16 @@ int main (int argc, const char * argv[]) {
 				printf("No more words can be added to memory.\n"
 					"You may quit the program and elect to write all words in memory to the dictionary file.");
 				free(choice);
-				break;
+				continue;
 			}
 			
 			insertMap(hashTable, word, 0);
 			addedWords[addedWordsCount] = malloc(sizeof(char) * (strlen(word) + 1));
 			strcpy(addedWords[addedWordsCount], word);
 			addedWordsCount++;
-			free(choice);
 		}
+
+		free(choice);
 	}
 	else
 		printf("%s is in the dictionary.\n", word);
