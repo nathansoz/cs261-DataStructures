@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <ctype.h>
 #include "hashMap.h"
 
 /*
@@ -54,7 +55,7 @@ int main (int argc, const char * argv[]) {
     scanf("%s",word);
     
 	/*ensure we have lowercase input*/
-	int i;
+	size_t i;
 	for (i = 0; i < strlen(word); i++)
 		word[i] = tolower(word[i]);
 
