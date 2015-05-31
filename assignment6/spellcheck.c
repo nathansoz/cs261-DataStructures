@@ -130,7 +130,7 @@ int main (int argc, const char * argv[]) {
 	  }
 	  
 	  int i;
-	  for (int i = 0; i < addedWordsCount; i++)
+	  for (i = 0; i < addedWordsCount; i++)
 		  free(addedWords[i]);
 	  free(choice);
   }
