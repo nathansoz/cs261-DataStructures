@@ -79,6 +79,7 @@ int main (int argc, const char * argv[]) {
 	removeKey(hashTable, "and");
 	removeKey(hashTable, "me");
 	removeKey(hashTable, "the");
+	removeKey(hashTable, "blistering");
 	printMap(hashTable);
 		
 	deleteMap(hashTable);
